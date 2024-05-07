@@ -3,14 +3,23 @@ import { Optional } from "sequelize";
 import { container, RegionEnum, DefaultModelInterface } from "@structured-growth/microservice-sdk";
 
 export interface ExampleAttributes extends DefaultModelInterface {
-	status: string;
+
+	principal: string;
+	resource: string;
+	action: string;
+	data: string;
+	createdAt: Date;
+
 }
+
+// GET api/v1/journal?resource=sg-account-api:us:*:*:emails/*
+// GET api/v1/journal?action=sg-account-api:us:1:*:*/delete
 
 export interface ExampleCreationAttributes extends Optional<ExampleAttributes, "id"> {}
 
 @Table({
 	tableName: "example",
-	timestamps: true,
+	timestamps: false,
 	underscored: true,
 })
 export class Example extends Model<ExampleAttributes, ExampleCreationAttributes> implements ExampleAttributes {
