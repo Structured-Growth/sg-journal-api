@@ -22,13 +22,6 @@ router.post(pathPrefix + '/v1/system/migrate', handleRequest(Controllers.SystemC
 //PingController
 router.get(pathPrefix + '/v1/ping/alive', handleRequest(Controllers.PingController, "pingGet", handlerOpts));
 
-//ExampleController
-router.get(pathPrefix + '/v1/examples', handleRequest(Controllers.ExampleController, "search", handlerOpts));
-router.post(pathPrefix + '/v1/examples', handleRequest(Controllers.ExampleController, "create", handlerOpts));
-router.get(pathPrefix + '/v1/examples/:exampleId', handleRequest(Controllers.ExampleController, "get", handlerOpts));
-router.put(pathPrefix + '/v1/examples/:exampleId', handleRequest(Controllers.ExampleController, "update", handlerOpts));
-router.delete(pathPrefix + '/v1/examples/:exampleId', handleRequest(Controllers.ExampleController, "delete", handlerOpts));
-
 //ResolverController
 router.get(pathPrefix + '/v1/resolver/resolve', handleRequest(Controllers.ResolverController, "resolve", handlerOpts));
 router.get(pathPrefix + '/v1/resolver/actions', handleRequest(Controllers.ResolverController, "actions", handlerOpts));

@@ -6,7 +6,7 @@ import { inject } from "@structured-growth/microservice-sdk";
 @Tags("PingController")
 @autoInjectable()
 export class PingController extends BaseController {
-	constructor(@inject("appPrefix") private appPrefix?: string) {
+	constructor() {
 		super();
 	}
 
