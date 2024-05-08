@@ -16,8 +16,6 @@ import { JournalEntriesSearchParamsValidator } from "../../validators/journal-en
 
 const publicJournalEntryAttributes = [
 	"id",
-	"orgId",
-	"accountId",
 	"principal",
 	"resource",
 	"action",
@@ -37,23 +35,17 @@ export class JournalEntriesController extends BaseController {
 
 	/**
 	 * Search JournalEntries
+	 *
+	 * principal: sg-account-api:us:1:1
 	 */
 	@OperationId("Search")
 	@Get("/")
 	@SuccessResponse(200, "Returns list of journal entries")
 	@DescribeAction("journal-entries/search")
-	@DescribeResource("Organization", ({ query }) => Number(query.orgId))
 	@ValidateFuncArgs(JournalEntriesSearchParamsValidator)
 	async search(
 		@Queries() query: JournalEntrySearchParamsInterface
 	): Promise<SearchResultInterface<PublicJournalEntryAttributes>> {
-		const { data, ...result } = await this.journalEntryRepository.search(query);
-
-		return {
-			data: data.map((account) => ({
-				...(pick(account.toJSON(), publicJournalEntryAttributes) as PublicJournalEntryAttributes),
-			})),
-			...result,
-		};
+		return undefined;
 	}
 }

@@ -1,8 +1,16 @@
 import "reflect-metadata";
 import "./load-environment";
 import { App } from "./app";
-import { container, Lifecycle, logWriters, Logger } from "@structured-growth/microservice-sdk";
+import {
+	container,
+	Lifecycle,
+	logWriters,
+	Logger,
+	eventBusProviders,
+	EventbusService,
+} from "@structured-growth/microservice-sdk";
 import { loadEnvironment } from "./load-environment";
+import { JournalEntryRepository } from "../modules/journal-entries/journal-entries.repository";
 
 // load and validate env variables
 loadEnvironment();
@@ -23,3 +31,10 @@ container.register("LogWriter", logWriters[process.env.LOG_WRITER] || "ConsoleLo
 });
 container.register("Logger", Logger);
 container.register("App", App, { lifecycle: Lifecycle.Singleton });
+
+container.register("eventbusName", { useValue: process.env.EVENTBUS_NAME || "sg-eventbus-dev" });
+container.register("EventbusProvider", eventBusProviders[process.env.EVENTBUS_PROVIDER || "AwsEventBridgeEventbusProvider"]);
+container.register("EventbusService", EventbusService);
+
+// repositories
+container.register("JournalEntryRepository", JournalEntryRepository);

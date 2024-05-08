@@ -1,5 +1,5 @@
 {
-  "name": "@structured-growth/api-service-starter-kit",
+  "name": "@structured-growth/sg-journal-api",
   "version": "1.0.0",
   "description": "",
   "main": ".dist/src/api",

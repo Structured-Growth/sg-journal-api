@@ -2,37 +2,25 @@
 
 const Sequelize = require("sequelize");
 
-/** @type {import('sequelize-cli').Migration} */
+/** @type {import("sequelize-cli").Migration} */
 module.exports = {
 	async up(queryInterface) {
-		await queryInterface.createTable("journal-entries", {
+		await queryInterface.createTable("journal_entries", {
 			id: {
 				type: Sequelize.INTEGER,
 				primaryKey: true,
 				autoIncrement: true,
 			},
-			orgId: {
-				type: Sequelize.INTEGER,
-				allowNull: false,
-			},
-			region: {
-				type: Sequelize.STRING(10),
-				allowNull: false,
-			},
-			accountId: {
-				type: Sequelize.INTEGER,
-				allowNull: false,
-			},
 			principal: {
-				type: Sequelize.STRING(100),
+				type: Sequelize.STRING(255),
 				allowNull: false,
 			},
 			resource: {
-				type: Sequelize.STRING(100),
+				type: Sequelize.STRING(255),
 				allowNull: false,
 			},
 			action: {
-				type: Sequelize.STRING(100),
+				type: Sequelize.STRING(255),
 				allowNull: false,
 			},
 			data: {
@@ -44,6 +32,6 @@ module.exports = {
 	},
 
 	async down(queryInterface) {
-		await queryInterface.dropTable("journal-entries");
+		await queryInterface.dropTable("journal_entries");
 	},
 };

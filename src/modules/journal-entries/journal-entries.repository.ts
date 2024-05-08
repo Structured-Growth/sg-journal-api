@@ -1,4 +1,3 @@
-import { Op } from "sequelize";
 import { autoInjectable, RepositoryInterface, SearchResultInterface } from "@structured-growth/microservice-sdk";
 import JournalEntry, { JournalEntryCreationAttributes } from "../../../database/models/journal-entry";
 import { JournalEntrySearchParamsInterface } from "../../interfaces/journal-entry-search-params.interface";
@@ -13,10 +12,6 @@ export class JournalEntryRepository
 		const offset = (page - 1) * limit;
 		const where = {};
 		const order = params.sort ? (params.sort.map((item) => item.split(":")) as any) : [["createdAt", "desc"]];
-
-		params.id && (where["id"] = { [Op.in]: params.id });
-		params.orgId && (where["orgId"] = params.orgId);
-		params.accountId && (where["accountId"] = params.accountId);
 
 		params.principal && (where["principal"] = params.principal);
 		params.resource && (where["resource"] = params.resource);
