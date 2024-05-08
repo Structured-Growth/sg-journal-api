@@ -3,7 +3,6 @@ import {
 	autoInjectable,
 	BaseController,
 	DescribeAction,
-	DescribeResource,
 	inject,
 	ValidateFuncArgs,
 	SearchResultInterface,
@@ -14,14 +13,7 @@ import { JournalEntrySearchParamsInterface } from "../../interfaces/journal-entr
 import { JournalEntryRepository } from "../../modules/journal-entries/journal-entries.repository";
 import { JournalEntriesSearchParamsValidator } from "../../validators/journal-entries-search-params.validator";
 
-const publicJournalEntryAttributes = [
-	"id",
-	"principal",
-	"resource",
-	"action",
-	"data",
-	"createdAt",
-] as const;
+const publicJournalEntryAttributes = ["principal", "resource", "action", "data", "createdAt"] as const;
 type JournalEntryKeys = (typeof publicJournalEntryAttributes)[number];
 type PublicJournalEntryAttributes = Pick<JournalEntryAttributes, JournalEntryKeys>;
 
@@ -35,8 +27,6 @@ export class JournalEntriesController extends BaseController {
 
 	/**
 	 * Search JournalEntries
-	 *
-	 * principal: sg-account-api:us:1:1
 	 */
 	@OperationId("Search")
 	@Get("/")
@@ -46,6 +36,13 @@ export class JournalEntriesController extends BaseController {
 	async search(
 		@Queries() query: JournalEntrySearchParamsInterface
 	): Promise<SearchResultInterface<PublicJournalEntryAttributes>> {
-		return undefined;
+		const { data, ...result } = await this.journalEntryRepository.search(query);
+
+		return {
+			data: data.map((account) => ({
+				...(pick(account.toJSON(), publicJournalEntryAttributes) as PublicJournalEntryAttributes),
+			})),
+			...result,
+		};
 	}
 }

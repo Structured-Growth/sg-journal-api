@@ -13,7 +13,7 @@ export interface JournalEntryCreationAttributes extends Omit<JournalEntryAttribu
 
 @Table({
 	tableName: "journal_entries",
-	timestamps: true,
+	timestamps: false,
 	underscored: true,
 })
 export class JournalEntry

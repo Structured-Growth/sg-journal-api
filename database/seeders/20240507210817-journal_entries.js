@@ -11,9 +11,6 @@ module.exports = {
 			Array(20)
 				.fill()
 				.map((_, index) => ({
-					// orgId: index + 1,
-					// region: "us",
-					// accountId: 1000 + index,
 					principal: `sg-account-api:us:${index + 1}:1`,
 					resource: `sg-account-api:us:${index + 1}:2`,
 					action: `sg-account-api:${actions[Math.floor(Math.random() * actions.length)]}`,
