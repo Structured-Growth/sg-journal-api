@@ -1,4 +1,5 @@
-import {joi, ConfigLoader } from "@structured-growth/microservice-sdk";
+import { joi, ConfigLoader } from "@structured-growth/microservice-sdk";
+
 // import * as joi from "joi";
 
 export function loadEnvironment() {
@@ -42,5 +43,8 @@ export function loadEnvironment() {
 		DB_SCHEMA: joi.string().required(),
 		DB_MIGRATION_TABLE_SCHEMA: joi.string().required(),
 		DB_MIGRATION_TABLE_NAME: joi.string().required(),
+		EVENTBUS_PROVIDER: joi.string().required().valid("AwsEventBridgeEventbusProvider", "TestEventbusProvider"),
+		EVENTBUS_NAME: joi.string().required(),
+		JOURNAL_API_QUEUE_NAME: joi.string().required(),
 	});
 }
