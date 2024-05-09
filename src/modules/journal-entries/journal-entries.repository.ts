@@ -33,7 +33,7 @@ export class JournalEntryRepository
 	}
 
 	public async create(data: JournalEntryCreationAttributes): Promise<JournalEntry> {
-		throw new Error("Not implemented");
+		return JournalEntry.create(data);
 	}
 
 	public async read(id: number): Promise<JournalEntry | null> {
