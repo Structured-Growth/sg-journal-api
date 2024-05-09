@@ -5,7 +5,6 @@ import { autoInjectable, BaseController, DescribeAction } from "@structured-grow
 @Tags("PingController")
 @autoInjectable()
 export class PingController extends BaseController {
-
 	/**
 	 * Check if server is alive
 	 */
