@@ -41,7 +41,6 @@ program
 		});
 	});
 
-
 program
 	.command("docs")
 	.description("Generate API docs")

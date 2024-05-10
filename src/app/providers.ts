@@ -7,7 +7,9 @@ import {
 	logWriters,
 	Logger,
 	eventBusProviders,
-	EventbusService, queueProviders, QueueService,
+	EventbusService,
+	queueProviders,
+	QueueService,
 } from "@structured-growth/microservice-sdk";
 import { loadEnvironment } from "./load-environment";
 import { JournalEntryRepository } from "../modules/journal-entries/journal-entries.repository";
@@ -34,7 +36,10 @@ container.register("Logger", Logger);
 container.register("App", App, { lifecycle: Lifecycle.Singleton });
 
 container.register("eventbusName", { useValue: process.env.EVENTBUS_NAME || "sg-eventbus-dev" });
-container.register("EventbusProvider", eventBusProviders[process.env.EVENTBUS_PROVIDER || "AwsEventBridgeEventbusProvider"]);
+container.register(
+	"EventbusProvider",
+	eventBusProviders[process.env.EVENTBUS_PROVIDER || "AwsEventBridgeEventbusProvider"]
+);
 container.register("EventbusService", EventbusService);
 
 container.register("QueueProvider", queueProviders.AwsSqsQueueProvider);
