@@ -5,7 +5,7 @@ export const JournalEntriesSearchParamsValidator = joi.object({
 	query: joi
 		.object({
 			principal: joi.string().max(255).label("Principal"),
-			resource: joi.string().max(3).label("Resource"),
+			resource: joi.string().max(255).label("Resource"),
 			action: joi.string().max(255).label("Action"),
 		})
 		.concat(CommonSearchParamsValidator),
