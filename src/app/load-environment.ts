@@ -46,5 +46,9 @@ export function loadEnvironment() {
 		EVENTBUS_PROVIDER: joi.string().required().valid("AwsEventBridgeEventbusProvider", "TestEventbusProvider"),
 		EVENTBUS_NAME: joi.string().required(),
 		JOURNAL_API_QUEUE_NAME: joi.string().required(),
+		AUTHENTICATION_ENABLED: joi.bool().required(),
+		AUTHORIZATION_ENABLED: joi.bool().required(),
+		OAUTH_USER_URL: joi.string().required(),
+		POLICY_SERVICE_URL: joi.string().required(),
 	});
 }

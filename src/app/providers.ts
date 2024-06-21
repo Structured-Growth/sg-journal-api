@@ -10,6 +10,8 @@ import {
 	EventbusService,
 	queueProviders,
 	QueueService,
+	PolicyService,
+	AuthService,
 } from "@structured-growth/microservice-sdk";
 import { loadEnvironment } from "./load-environment";
 import { JournalEntryRepository } from "../modules/journal-entries/journal-entries.repository";
@@ -44,6 +46,13 @@ container.register("EventbusService", EventbusService);
 
 container.register("QueueProvider", queueProviders.AwsSqsQueueProvider);
 container.register("QueueService", QueueService);
+
+container.register("authenticationEnabled", { useValue: process.env.AUTHENTICATION_ENABLED === "true" });
+container.register("authorizationEnabled", { useValue: process.env.AUTHORIZATION_ENABLED === "true" });
+container.register("oAuthServiceGetUserUrl", { useValue: process.env.OAUTH_USER_URL });
+container.register("policiesServiceUrl", { useValue: process.env.POLICY_SERVICE_URL });
+container.register("AuthService", AuthService);
+container.register("PolicyService", PolicyService);
 
 // repositories
 container.register("JournalEntryRepository", JournalEntryRepository);
