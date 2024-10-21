@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { autoInjectable, RepositoryInterface, SearchResultInterface } from "@structured-growth/microservice-sdk";
 import JournalEntry, { JournalEntryCreationAttributes } from "../../../database/models/journal-entry";
 import { JournalEntrySearchParamsInterface } from "../../interfaces/journal-entry-search-params.interface";
@@ -13,9 +14,21 @@ export class JournalEntryRepository
 		const where = {};
 		const order = params.sort ? (params.sort.map((item) => item.split(":")) as any) : [["createdAt", "desc"]];
 
-		params.principal && (where["principal"] = params.principal);
-		params.resource && (where["resource"] = params.resource);
-		params.action && (where["action"] = params.action);
+		if (params.principal) {
+			where["principal"] = {
+				[Op.iLike]: params.principal.replace(/\*/g, "%"),
+			};
+		}
+		if (params.resource) {
+			where["resource"] = {
+				[Op.iLike]: params.resource.replace(/\*/g, "%"),
+			};
+		}
+		if (params.action) {
+			where["action"] = {
+				[Op.iLike]: params.action.replace(/\*/g, "%"),
+			};
+		}
 
 		const { rows, count } = await JournalEntry.findAndCountAll({
 			where,
