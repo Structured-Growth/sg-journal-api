@@ -33,9 +33,6 @@ export class JournalEntriesController extends BaseController {
 	@Get("/")
 	@SuccessResponse(200, "Returns list of journal entries")
 	@DescribeAction("journal-entries/search")
-	@DescribeResource("Resource", ({ query }) => ({
-		arn: query.resource as string,
-	}))
 	@ValidateFuncArgs(JournalEntriesSearchParamsValidator)
 	async search(
 		@Queries() query: JournalEntrySearchParamsInterface
