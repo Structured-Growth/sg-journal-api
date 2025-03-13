@@ -50,5 +50,6 @@ export function loadEnvironment() {
 		AUTHORIZATION_ENABLED: joi.bool().required(),
 		OAUTH_USER_URL: joi.string().required(),
 		POLICY_SERVICE_URL: joi.string().required(),
+		API_DOCS_HOST_LIST: joi.string().required(),
 	});
 }
