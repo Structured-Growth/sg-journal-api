@@ -4,9 +4,9 @@ import { CommonSearchParamsValidator } from "./common-search-params.validator";
 export const JournalEntriesSearchParamsValidator = joi.object({
 	query: joi
 		.object({
-			principal: joi.string().max(255).label("Principal"),
-			resource: joi.string().max(255).label("Resource"),
-			action: joi.string().max(255).label("Action"),
+			principal: joi.string().max(255).label("validator.journal.principal"),
+			resource: joi.string().max(255).label("validator.journal.resource"),
+			action: joi.string().max(255).label("validator.journal.action"),
 		})
 		.concat(CommonSearchParamsValidator),
 });
