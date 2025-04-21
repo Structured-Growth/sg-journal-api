@@ -1,5 +1,11 @@
 import { Op } from "sequelize";
-import { autoInjectable, RepositoryInterface, SearchResultInterface } from "@structured-growth/microservice-sdk";
+import {
+	autoInjectable,
+	RepositoryInterface,
+	SearchResultInterface,
+	I18nType,
+	inject,
+} from "@structured-growth/microservice-sdk";
 import JournalEntry, { JournalEntryCreationAttributes } from "../../../database/models/journal-entry";
 import { JournalEntrySearchParamsInterface } from "../../interfaces/journal-entry-search-params.interface";
 
@@ -7,6 +13,10 @@ import { JournalEntrySearchParamsInterface } from "../../interfaces/journal-entr
 export class JournalEntryRepository
 	implements RepositoryInterface<JournalEntry, JournalEntrySearchParamsInterface, JournalEntryCreationAttributes>
 {
+	private i18n: I18nType;
+	constructor(@inject("i18n") private getI18n: () => I18nType) {
+		this.i18n = this.getI18n();
+	}
 	public async search(params: JournalEntrySearchParamsInterface): Promise<SearchResultInterface<JournalEntry>> {
 		const page = params.page || 1;
 		const limit = params.limit || 20;
@@ -50,14 +60,14 @@ export class JournalEntryRepository
 	}
 
 	public async read(id: number): Promise<JournalEntry | null> {
-		throw new Error("Not implemented");
+		throw new Error(this.i18n.__("error.common.not_implemented"));
 	}
 
 	public async update(id: number, data: Partial<JournalEntryCreationAttributes>): Promise<JournalEntry> {
-		throw new Error("Not implemented");
+		throw new Error(this.i18n.__("error.common.not_implemented"));
 	}
 
 	public async delete(id: number): Promise<void> {
-		throw new Error("Not implemented");
+		throw new Error(this.i18n.__("error.common.not_implemented"));
 	}
 }
