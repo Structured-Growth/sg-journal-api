@@ -1,0 +1,27 @@
+{
+  "system": {
+    "ping":  {
+      "am": "I'm",
+      "service": "service"
+    }
+  },
+  "error": {
+    "common": {
+      "not_implemented": "Not implemented"
+    }
+  },
+  "validator": {
+    "common": {
+      "id": "Entity IDs",
+      "arn": "Entity ARNs",
+      "page": "Page",
+      "limit": "Limit",
+      "sort": "Sort"
+    },
+    "journal": {
+      "principal": "Principal",
+      "resource": "Resource",
+      "action": "Action"
+    }
+  }
+}
