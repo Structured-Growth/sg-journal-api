@@ -7,6 +7,7 @@ import {
 	ValidateFuncArgs,
 	SearchResultInterface,
 	DescribeResource,
+	HashFields,
 } from "@structured-growth/microservice-sdk";
 import { pick } from "lodash";
 import { JournalEntryAttributes } from "../../../database/models/journal-entry";
@@ -33,6 +34,7 @@ export class JournalEntriesController extends BaseController {
 	@Get("/")
 	@SuccessResponse(200, "Returns list of journal entries")
 	@DescribeAction("journal-entries/search")
+	@HashFields(["data"])
 	@ValidateFuncArgs(JournalEntriesSearchParamsValidator)
 	async search(
 		@Queries() query: JournalEntrySearchParamsInterface
