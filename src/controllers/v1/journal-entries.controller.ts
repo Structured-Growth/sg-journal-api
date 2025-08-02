@@ -19,6 +19,7 @@ const publicJournalEntryAttributes = ["principal", "resource", "action", "data",
 type JournalEntryKeys = (typeof publicJournalEntryAttributes)[number];
 type PublicJournalEntryAttributes = Pick<JournalEntryAttributes, JournalEntryKeys>;
 
+// For devops
 @Route("v1/journal-entries")
 @Tags("JournalEntries")
 @autoInjectable()
