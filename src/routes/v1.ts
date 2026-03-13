@@ -26,6 +26,9 @@ router.get(pathPrefix + '/v1/ping/alive', handleRequest(Controllers.PingControll
 //JournalEntriesController
 router.get(pathPrefix + '/v1/journal-entries', handleRequest(Controllers.JournalEntriesController, "search", handlerOpts));
 
+//DocsController
+router.get(pathPrefix + '/v1/docs/swagger.json', handleRequest(Controllers.DocsController, "getSwagger", handlerOpts));
+
 //ResolverController
 router.get(pathPrefix + '/v1/resolver/resolve', handleRequest(Controllers.ResolverController, "resolve", handlerOpts));
 router.get(pathPrefix + '/v1/resolver/actions', handleRequest(Controllers.ResolverController, "actions", handlerOpts));
@@ -37,6 +40,7 @@ export const actionToRouteMap = {
 	"SystemController.uploadI18n": 'post /v1/system/i18n-upload',
 	"PingController.pingGet": 'get /v1/ping/alive',
 	"JournalEntriesController.search": 'get /v1/journal-entries',
+	"DocsController.getSwagger": 'get /v1/docs/swagger.json',
 	"ResolverController.resolve": 'get /v1/resolver/resolve',
 	"ResolverController.actions": 'get /v1/resolver/actions',
 	"ResolverController.models": 'get /v1/resolver/models',
