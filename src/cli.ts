@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 import "./app/providers";
 import { AppMock } from "./app/app.mock";
-import { container, generateApiDocs, Lifecycle, QueueService } from "@structured-growth/microservice-sdk";
+import {
+	container,
+	generateApiDocs,
+	generateEmitsManifest,
+	Lifecycle,
+	QueueService,
+} from "@structured-growth/microservice-sdk";
 import { program } from "commander";
 import { Message } from "aws-sdk/clients/sqs";
 import { min } from "lodash";
@@ -34,32 +40,6 @@ program
 	});
 
 program
-	.command("sqs")
-	.description("Runs a queue listener")
-	.action(async () => {
-		const queue: QueueService = container.resolve<QueueService>("QueueService");
-		const zohoIntegrationQueueName: string = container.resolve<string>("journalApiQueueName");
-		const { handler } = await require("./lambda-sqs");
-		queue.subscribe(zohoIntegrationQueueName, async (message, event: Message) => {
-			await handler({
-				Records: [
-					{
-						messageId: event.MessageId,
-						receiptHandle: event.ReceiptHandle,
-						body: event.Body,
-						attributes: event.Attributes,
-						messageAttributes: event.MessageAttributes,
-						md5OfBody: event.MD5OfBody,
-						eventSource: "",
-						eventSourceARN: "",
-						awsRegion: "",
-					} as any,
-				],
-			});
-		});
-	});
-
-program
 	.command("docs")
 	.description("Generate API docs")
 	.action(async () => {
@@ -80,6 +60,18 @@ program
 				servers: (process.env.API_DOCS_HOST_LIST || "").split(",").map((url) => ({ url })),
 			},
 		} as any);
+		process.exit();
+	});
+
+program
+	.command("events")
+	.description("Generate emits manifest")
+	.action(async () => {
+		container.register("App", AppMock, { lifecycle: Lifecycle.Singleton });
+		const app = container.resolve<AppMock>("App");
+		await app.ready;
+		const entries = generateEmitsManifest();
+		console.log(`Generated emits manifest with ${entries.length} entr${entries.length === 1 ? "y" : "ies"}`);
 		process.exit();
 	});
 
