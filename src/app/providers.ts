@@ -44,8 +44,8 @@ container.register(
 );
 container.register("EventbusService", EventbusService);
 
-container.register("QueueProvider", queueProviders.AwsSqsQueueProvider);
-container.register("QueueService", QueueService);
+container.register("QueueProvider", queueProviders[process.env.QUEUE_PROVIDER || "AwsSqsQueueProvider"]);
+container.register("QueueService", QueueService, { lifecycle: Lifecycle.Singleton });
 
 container.register("authenticationEnabled", { useValue: process.env.AUTHENTICATION_ENABLED === "true" });
 container.register("authorizationEnabled", { useValue: process.env.AUTHORIZATION_ENABLED === "true" });
